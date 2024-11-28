@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Don Chapato</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Don Chapato API</h1>
+        <button id="loadUsers" class="btn btn-primary">Cargar Usuarios</button>
+        <ul id="userList" class="list-group mt-3"></ul>
+    </div>
+    <script>
+        document.getElementById('loadUsers').addEventListener('click', async () => {
+            const response = await fetch('/usuarios');
+            const users = await response.json();
+            const userList = document.getElementById('userList');
+            userList.innerHTML = '';
+            users.forEach(user => {
+                const li = document.createElement('li');
+                li.textContent = `${user.nombre} - ${user.instagram} - ${user.telefono}`;
+                li.className = 'list-group-item';
+                userList.appendChild(li);
+            });
+        });
+    </script>
+</body>
+</html>
